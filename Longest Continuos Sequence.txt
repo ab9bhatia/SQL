@@ -1,0 +1,30 @@
+-- CREATE TABLE
+CREATE TABLE MOVIE(SEATNO int,ROWNO VARCHAR2(1), STATUS VARCHAR2(1));
+insert into MOVIE values(1,'A','Y');
+insert into MOVIE values(2,'A','N');
+insert into MOVIE values(3,'A','Y');
+insert into MOVIE values(4,'A','Y');
+insert into MOVIE values(5,'A','Y');
+insert into MOVIE values(6,'B','Y');
+insert into MOVIE values(7,'B','Y');
+insert into MOVIE values(8,'B','N');
+insert into MOVIE values(9,'B','Y');
+insert into MOVIE values(10,'B','N');
+insert into MOVIE values(11,'C','N');
+insert into MOVIE values(12,'C','Y');
+insert into MOVIE values(13,'C','Y');
+insert into MOVIE values(14,'C','Y');
+insert into MOVIE values(15,'C','N');
+
+
+-- Select seats which are available
+
+SELECT STATUS,(MAX(SEATNO)-count(*)+1)S, MAX(SEATNO)E,count(*) AS TOTAL
+FROM  (
+   SELECT ROWNO,STATUS, SEATNO
+        , row_number() OVER (PARTITION BY ROWNO,STATUS ORDER BY SEATNO) - SEATNO AS R1
+   FROM   MOVIE
+   ) MOVIE
+GROUP  BY MOVIE.ROWNO,MOVIE.STATUS, MOVIE.R1 HAVING STATUS='Y'
+ORDER  BY TOTAL DESC
+ 
