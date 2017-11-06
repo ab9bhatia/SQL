@@ -35,3 +35,26 @@ https://learn.upgrad.com/v/course/77/session/8500/segment/41098
 GradedII
 https://learn.upgrad.com/v/course/77/session/8500/segment/41099
 1b,2d,3a,4a,5b,6b,7b,8b,9d
+
+-- SQL Assignment/TASK2
+-- A
+SELECT SUM(SALES) AS total_sales, AVG(SALES) AS avg_sales FROM MARKET_FACT
+
+-- B
+SELECT REGION,COUNT(CUST_ID) AS no_of_customers FROM CUST_DIMEN GROUP BY REGION ORDER BY no_of_customers DESC
+
+-- C
+SELECT REGION,max(no_of_customers) FROM
+	(SELECT REGION,COUNT(CUST_ID) AS no_of_customers FROM CUST_DIMEN GROUP BY REGION ORDER BY no_of_customers DESC) AS T
+-- or
+-- SELECT REGION,COUNT(CUST_ID) AS no_of_customers FROM CUST_DIMEN GROUP BY REGION ORDER BY no_of_customers DESC LIMIT 1
+
+-- D
+SELECT PROD_ID AS product_id, COUNT(ORD_ID) AS no_of_products_sold FROM MARKET_FACT GROUP BY PROD_ID 
+ORDER BY no_of_products_sold DESC
+
+-- E
+SELECT C.customer_name,COUNT(M.ORD_ID) AS no_of_tables_purchased FROM CUST_DIMEN AS C INNER JOIN MARKET_FACT AS M 
+ON C.CUST_ID = M.CUST_ID AND C.REGION='ATLANTIC' 
+AND M.PROD_ID IN(SELECT PROD_ID FROM PROD_DIMEN WHERE PRODUCT_SUB_CATEGORY ='TABLES')
+GROUP BY C.customer_name;
