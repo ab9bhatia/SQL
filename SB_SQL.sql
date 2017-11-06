@@ -21,7 +21,7 @@ select name,population from city where name in ('Phoenix','Los Angeles','Chicago
 
 SET @whereClause = (select CONCAT(REPLACE(group_CONCAT(COLUMN_NAME),',',' IS NULL OR '),' IS NULL') 
 from information_schema.columns where table_schema='world' and table_name = 'country');
-SET @query = CONCAT("SELECT * FROM MOVIE WHERE ",@whereClause); 
+SET @query = CONCAT("SELECT * FROM country WHERE ",@whereClause); 
 PREPARE stmt FROM @query;
 EXECUTE stmt;
 
