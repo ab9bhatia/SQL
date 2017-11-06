@@ -28,3 +28,10 @@ EXECUTE stmt;
 Q11 SELECT * FROM COUNTRY WHERE NAME LIKE 'I%' AND NAME LIKE '%A'
 
 Q12 SELECT CONTINENT,SUM(SURFACEAREA) FROM COUNTRY GROUP BY CONTINENT ORDER BY SUM(SURFACEAREA) LIMIT 1
+
+GradedI
+https://learn.upgrad.com/v/course/77/session/8500/segment/41098
+1a|1d,2b|1c,2b
+GradedII
+https://learn.upgrad.com/v/course/77/session/8500/segment/41099
+1b,2d,3a,4a,5b,6b,7b,8b,9d
