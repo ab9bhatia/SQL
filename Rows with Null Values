@@ -1,0 +1,28 @@
+CREATE TABLE MOVIE(SEATNO int,ROWNO VARCHAR(1), STATUS VARCHAR(1));
+insert into MOVIE values(1,'A','Y');
+insert into MOVIE values(2,'A','N');
+insert into MOVIE values(3,NULL,'Y');
+insert into MOVIE values(4,'A','Y');
+insert into MOVIE values(5,'A','Y');
+insert into MOVIE values(6,'B','Y');
+insert into MOVIE values(7,NULL,NULL);
+insert into MOVIE values(8,'B','N');
+insert into MOVIE values(9,'B','Y');
+insert into MOVIE values(10,'B','N');
+insert into MOVIE values(11,NULL,'N');
+insert into MOVIE values(12,'C',NULL);
+insert into MOVIE values(13,'C','Y');
+insert into MOVIE values(14,'C','Y');
+insert into MOVIE values(15,NULL,'N');
+insert into MOVIE values(16,'C','N');
+insert into MOVIE values(17,'C','Y');
+insert into MOVIE values(18,'C',NULL);
+insert into MOVIE values(19,NULL,NULL);
+insert into MOVIE values(20,'C',NULL);
+
+
+SET @whereClause = (select CONCAT(REPLACE(group_CONCAT(COLUMN_NAME),',',' IS NULL OR '),' IS NULL') 
+from information_schema.columns where table_name = 'MOVIE');
+SET @query = CONCAT("SELECT * FROM MOVIE WHERE ",@whereClause); 
+PREPARE stmt FROM @query;
+EXECUTE stmt;
